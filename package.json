@@ -1,6 +1,6 @@
 {
   "name": "@storinka/client",
-  "version": "1.0.0",
+  "version": "0.9.1",
   "description": "Storinka JavaScript Client",
   "author": "Davyd Kohut",
   "license": "MIT",
@@ -12,12 +12,13 @@
   "keywords": [
     "storinka"
   ],
+  "homepage": "https://github.com/storinka/client#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/storinka/face-common"
+    "url": "git+https://github.com/storinka/client"
   },
   "bugs": {
-    "url": "https://github.com/storinka/face-common/issues"
+    "url": "https://github.com/storinka/client/issues"
   },
   "scripts": {
     "build": "rm -rf lib && tsc",
