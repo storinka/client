@@ -1,6 +1,6 @@
 {
   "name": "@storinka/client",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Storinka JavaScript Client",
   "author": "Davyd Kohut",
   "license": "MIT",
@@ -31,8 +31,5 @@
     "ts-jest": "^25.2.1",
     "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.7.5"
-  },
-  "dependencies": {
-    "whatwg-fetch": "^3.5.0"
   }
 }
