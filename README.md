@@ -4,8 +4,7 @@
 import StorinkaClient, { CoreError } from "@storinka/client";
 
 const storinka = new StorinkaClient({
-    clientId: 123,
-    clientSecret: "supersecret",
+    clientId: "secretid",
 });
 
 storinka.invoke("opendata.getCafe", {

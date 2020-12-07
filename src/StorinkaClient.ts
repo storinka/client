@@ -1,8 +1,7 @@
 import CoreError from "./CoreError";
 
 interface StorinkaClientOptions {
-    clientSecret: string,
-    clientId: number,
+    clientId: string,
     coreVersion?: number,
     coreUrl?: string,
     accessToken?: string,
@@ -35,11 +34,12 @@ class StorinkaClient {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
+
                 ...(this.options.accessToken ? {
                     "Authorization": `Bearer: ${this.options.accessToken}`
                 } : {}),
-                "X-Storinka-ClientId": String(this.options.clientId),
-                "X-Storinka-ClientSecret": this.options.clientSecret,
+
+                "X-Storinka-ClientId": this.options.clientId,
             },
         }).then(response => {
             if (!response.ok) {
