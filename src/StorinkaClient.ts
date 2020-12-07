@@ -37,7 +37,9 @@ class StorinkaClient {
                 "Accept": "application/json",
                 ...(this.options.accessToken ? {
                     "Authorization": `Bearer: ${this.options.accessToken}`
-                } : {})
+                } : {}),
+                "X-Storinka-ClientId": String(this.options.clientId),
+                "X-Storinka-ClientSecret": this.options.clientSecret,
             },
         }).then(response => {
             if (!response.ok) {
