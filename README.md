@@ -1,4 +1,5 @@
-# face-common
+# Storinka JavaScript Client
+
 ```javascript
 import StorinkaClient, { CoreError } from "@storinka/client";
 
