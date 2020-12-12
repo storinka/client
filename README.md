@@ -1,5 +1,19 @@
 # Storinka JavaScript Client
 
+## Installation
+
+NPM:
+```shell script
+npm install @storinka/client
+```
+
+Yarn:
+```
+yarn add @storinka/client
+```
+
+## Example
+
 ```javascript
 import StorinkaClient, { CoreError } from "@storinka/client";
 
