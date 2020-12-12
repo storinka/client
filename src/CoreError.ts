@@ -1,12 +1,10 @@
 class CoreError {
-    public code: number;
-    public type: string;
-    public message: string;
+    public error: string;
+    public data?: any;
 
-    constructor({code, type, message}: { code: number, type: string, message: string }) {
-        this.code = code;
-        this.type = type;
-        this.message = message;
+    constructor({error, data}: { error: string, data?: any }) {
+        this.error = error;
+        this.data = data;
     }
 }
 

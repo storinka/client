@@ -45,9 +45,8 @@ class StorinkaClient {
             if (!response.ok) {
                 return response.json().then(body => {
                     throw new CoreError({
-                        code: response.status,
-                        type: body.error,
-                        message: body.message,
+                        error: body.error,
+                        data: body.data,
                     });
                 });
             }
