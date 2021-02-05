@@ -5,7 +5,7 @@ interface StorinkaClientOptions {
     accessToken?: string,
 }
 
-export class CoreError {
+export class ApiError {
     public error: string;
     public data?: any;
 
@@ -46,7 +46,7 @@ class StorinkaClient {
         }).then(response => {
             if (!response.ok) {
                 return response.json().then(body => {
-                    throw new CoreError({
+                    throw new ApiError({
                         error: body.error,
                         data: body.data,
                     });

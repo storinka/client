@@ -1,5 +1,7 @@
 # Storinka JavaScript Client
 
+Documentation: [api.storinka.menu/docs](https://api.storinka.menu/docs)
+
 ## Installation
 
 NPM:
@@ -17,7 +19,7 @@ yarn add @storinka/client
 ## Example
 
 ```javascript
-import StorinkaClient, { CoreError } from "@storinka/client";
+import StorinkaClient, { ApiError } from "@storinka/client";
 
 const storinka = new StorinkaClient({
     clientId: "your-client-id-here",
@@ -28,7 +30,7 @@ storinka.invoke("getFullCafe", {
 }).then(cafe => {
     console.log(cafe);
 }).catch(error => {
-    if (error instanceof CoreError) {
+    if (error instanceof ApiError) {
         console.log("request failed", error);
     } else {
         console.log("network error");
