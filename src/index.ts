@@ -1,7 +1,7 @@
 interface StorinkaClientOptions {
     clientId: string,
     coreVersion?: number,
-    coreUrl?: string,
+    apiUrl?: string,
     accessToken?: string,
 }
 
@@ -21,33 +21,27 @@ class StorinkaClient {
     ) {
     }
 
-    private get coreUrl(): string {
-        if (this.options.coreUrl) {
-            return this.options.coreUrl;
+    private get apiUrl(): string {
+        if (this.options.apiUrl) {
+            return this.options.apiUrl;
         }
 
-        return "https://core.storinka.menu";
+        return "https://api.storinka.menu";
     }
 
     public invoke(name: string, params: any): Promise<any> {
-        let invokeUrl = this.coreUrl;
-
-        if (this.options.coreVersion) {
-            invokeUrl = `${invokeUrl}/${this.options.coreVersion}`;
-        }
-
-        return global.fetch(`${invokeUrl}/invoke/${name}`, {
+        return global.fetch(`${this.apiUrl}/invoke/${name}`, {
             method: "POST",
             body: JSON.stringify(params),
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
 
-                ...(this.options.accessToken ? {
-                    "Authorization": `Bearer: ${this.options.accessToken}`
+                ...(this.options.coreVersion ? {
+                    "X-Storinka-Version": String(this.options.coreVersion)
                 } : {}),
 
-                "X-Storinka-ClientId": this.options.clientId,
+                "X-Storinka-Client-Id": this.options.clientId,
             },
         }).then(response => {
             if (!response.ok) {

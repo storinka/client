@@ -3,11 +3,13 @@
 ## Installation
 
 NPM:
+
 ```shell script
 npm install @storinka/client
 ```
 
 Yarn:
+
 ```
 yarn add @storinka/client
 ```
@@ -18,11 +20,11 @@ yarn add @storinka/client
 import StorinkaClient, { CoreError } from "@storinka/client";
 
 const storinka = new StorinkaClient({
-    clientId: "secretid",
+    clientId: "your-client-id-here",
 });
 
-storinka.invoke("opendata.getCafe", {
-    id: "demo",
+storinka.invoke("getFullCafe", {
+    id: "kava-gallery",
 }).then(cafe => {
     console.log(cafe);
 }).catch(error => {
