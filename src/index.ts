@@ -3,6 +3,7 @@ interface StorinkaClientOptions {
     coreVersion?: number,
     apiUrl?: string,
     accessToken?: string,
+    reinvoke?: boolean,
 }
 
 export class ApiError {
@@ -30,31 +31,47 @@ class StorinkaClient {
     }
 
     public invoke(name: string, params: any): Promise<any> {
-        return global.fetch(`${this.apiUrl}/invoke/${name}`, {
-            method: "POST",
-            body: JSON.stringify(params),
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
+        return new Promise((resolve, reject) => {
+            global.fetch(`${this.apiUrl}/invoke/${name}`, {
+                method: "POST",
+                body: JSON.stringify(params),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
 
-                ...(this.options.coreVersion ? {
-                    "X-Storinka-Version": String(this.options.coreVersion)
-                } : {}),
+                    ...(this.options.coreVersion ? {
+                        "X-Storinka-Version": String(this.options.coreVersion)
+                    } : {}),
 
-                "X-Storinka-Client-Id": this.options.clientId,
-            },
-        }).then(response => {
-            if (!response.ok) {
-                return response.json().then(body => {
-                    throw new ApiError({
-                        error: body.error,
-                        data: body.data,
-                    });
-                });
-            }
-
-            return response.json();
-        }).then(body => body.result);
+                    "X-Storinka-Client-Id": this.options.clientId,
+                },
+            }).then(response => {
+                if (!response.ok) {
+                    response.json()
+                        .then(body => {
+                            if (body.error === "REINVOKE" && this.options.reinvoke) {
+                                setTimeout(() => {
+                                    this.invoke(name, params)
+                                        .then(resolve)
+                                        .catch(reject);
+                                }, (body.data?.timeout ?? 5) * 1000)
+                            } else {
+                                reject(
+                                    new ApiError({
+                                        error: body.error,
+                                        data: body.data,
+                                    })
+                                );
+                            }
+                        });
+                } else {
+                    response.json()
+                        .then(body => {
+                            resolve(body.result)
+                        });
+                }
+            });
+        });
     }
 }
 
