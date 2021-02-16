@@ -1,8 +1,7 @@
 interface StorinkaClientOptions {
     clientId: string,
-    coreVersion?: number,
+    apiVersion?: number,
     apiUrl?: string,
-    accessToken?: string,
     reinvoke?: boolean,
 }
 
@@ -39,8 +38,8 @@ class StorinkaClient {
                     "Content-Type": "application/json",
                     "Accept": "application/json",
 
-                    ...(this.options.coreVersion ? {
-                        "X-Storinka-Version": String(this.options.coreVersion)
+                    ...(this.options.apiVersion ? {
+                        "X-Storinka-Version": String(this.options.apiVersion)
                     } : {}),
 
                     "X-Storinka-Client-Id": this.options.clientId,
